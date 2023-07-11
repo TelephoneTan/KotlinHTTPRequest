@@ -56,9 +56,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    implementation("pub.telephone:java-http-request:6.1.0")
-    implementation("pub.telephone:kotlin-promise:0.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    api("pub.telephone:java-http-request:6.1.0")
+    api("pub.telephone:kotlin-promise:0.6.0")
 }
 
 tasks.test {

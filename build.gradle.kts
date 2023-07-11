@@ -4,10 +4,38 @@ import java.util.*
 
 plugins {
     kotlin("jvm") version "1.9.0"
+    `java-library`
+    `maven-publish`
 }
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+
+publishing {
+    repositories {
+        val p = Properties().apply {
+            val ins = FileInputStream("./local.gradle.properties")
+            load(ins)
+            ins.close()
+        }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/TelephoneTan/KotlinHTTPRequest")
+            credentials {
+                username = p.getProperty("gpr_github_user") as String
+                password = p.getProperty("gpr_github_key") as String
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("khr") {
+            groupId = "pub.telephone"
+            artifactId = "kotlin-http-request"
+            version = "0.1.0"
+            from(components["java"])
+        }
+    }
+}
 
 repositories {
     val p = Properties().apply {
